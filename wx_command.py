@@ -1,3 +1,9 @@
+# coding: utf-8
+
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 import load
 
 
@@ -75,7 +81,9 @@ def do_command(msg):
         if errmsg:
             msg.reply('开启监听模式失败，{}'.format(errmsg))
         else:
-            msg.reply('已开启监听模式，在{0}中监听{1}'.format(str(msg.bot.listen_friend_groups), str(msg.bot.listen_friends)))
+            msg.reply('已开启监听模式，在{0}中监听{1}'.format(
+                str(msg.bot.listen_friend_groups),
+                str(msg.bot.listen_friends)))
         return None
 
     if '关闭监听模式' == msg.text:
@@ -90,7 +98,8 @@ def do_command(msg):
         if errmsg:
             msg.reply('开启群分享监控失败，{}'.format(errmsg))
         else:
-            msg.reply('已开启群分享监控，将监控这些群：{}'.format(str(msg.bot.listen_sharing_groups)))
+            msg.reply('已开启群分享监控，将监控这些群：{}'.format(
+                str(msg.bot.listen_sharing_groups)))
         return None
 
     if '关闭监控模式' == msg.text:
@@ -105,7 +114,8 @@ def do_command(msg):
         if errmsg:
             msg.reply('开启转发模式失败，{}'.format(errmsg))
         else:
-            msg.reply('已开启转发模式，直接发送消息给我就会转发到这些群：{0}，如果不想转发可以对我说：{1}'.format(str(msg.bot.forward_groups), '关闭转发模式'))
+            msg.reply('已开启转发模式，直接发送消息给我就会转发到这些群：{0}，如果不想转发可以对我说：{1}'.format(
+                str(msg.bot.forward_groups), '关闭转发模式'))
         return None
 
     if '休眠' == msg.text:

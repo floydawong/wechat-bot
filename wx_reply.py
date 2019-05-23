@@ -1,4 +1,11 @@
+# coding: utf-8
+
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 # 好友功能
+
 import re
 
 import tuling_robot
@@ -43,24 +50,29 @@ def handle_system_msg(msg):
 def forward_revoke_msg(msg):
     """转发撤回的消息"""
     # 获取被撤回消息的ID
-    revoke_msg_id = re.search('<msgid>(.*?)</msgid>', msg.raw['Content']).group(1)
+    revoke_msg_id = re.search('<msgid>(.*?)</msgid>',
+                              msg.raw['Content']).group(1)
     # bot中有缓存之前的消息，默认200条
     for old_msg_item in msg.bot.messages[::-1]:
         # 查找撤回的那条
         if revoke_msg_id == str(old_msg_item.id):
             # 判断是群消息撤回还是好友消息撤回
             if old_msg_item.member:
-                sender_name = '群「{0}」中的「{1}」'.format(old_msg_item.chat.name, old_msg_item.member.name)
+                sender_name = '群「{0}」中的「{1}」'.format(old_msg_item.chat.name,
+                                                     old_msg_item.member.name)
             else:
                 sender_name = '「{}」'.format(old_msg_item.chat.name)
             # 名片无法转发
             if old_msg_item.type == 'Card':
                 sex = '男' if old_msg_item.card.sex == 1 else '女' or '未知'
-                msg.bot.master.send('「{0}」撤回了一张名片：\n名称：{1}，性别：{2}'.format(sender_name, old_msg_item.card.name, sex))
+                msg.bot.master.send('「{0}」撤回了一张名片：\n名称：{1}，性别：{2}'.format(
+                    sender_name, old_msg_item.card.name, sex))
             else:
                 # 转发被撤回的消息
-                old_msg_item.forward(msg.bot.master,
-                                     prefix='{}撤回了一条消息：'.format(sender_name, get_msg_chinese_type(old_msg_item.type)))
+                old_msg_item.forward(
+                    msg.bot.master,
+                    prefix='{}撤回了一条消息：'.format(
+                        sender_name, get_msg_chinese_type(old_msg_item.type)))
             return None
 
 

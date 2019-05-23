@@ -1,11 +1,15 @@
+# coding: utf-8
+
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 import json
 import requests
 
 from wxpy import *
 
 import config
-
-
 """
     免费申请图灵机器人，获取api_key
     图灵机器人免费申请地址 http://www.tuling123.com
