@@ -19,8 +19,7 @@ tuling = Tuling(api_key=config.tuling_api_key)
 
 def auto_reply(msg):
     """回复消息，并返回答复文本"""
-    return tuling.do_reply(msg)
-
+    return msg.reply('[机器人]' + str(tuling.reply_text(msg))) 
 
 if __name__ == '__main__':
     """
