@@ -38,6 +38,7 @@ def load_config_to_bot(bot):
     bot.is_listen_sharing = config.is_listen_sharing
     bot.is_forward_revoke_msg = config.is_forward_revoke_msg
     bot.is_forward_group_at_msg = config.is_forward_group_at_msg
+    bot.busy_reply_friend_exclude = config.busy_reply_friend_exclude
     # 加载对应好友和群
     load_listen_friend(bot)
     load_forward_groups(bot)

@@ -9,6 +9,7 @@ from wxpy import *
 import wx_reply
 import wx_command
 import load
+import busy_reply
 
 # 微信机器人，缓存登录信息
 # 如果你需要部署在服务器中，则在下面加入一个入参console_qr=True
@@ -16,9 +17,8 @@ import load
 bot = Bot(cache_path=True)
 # 加载配置信息到机器人
 load.load_config_to_bot(bot)
+
 """好友功能"""
-
-
 @bot.register(msg_types=FRIENDS)
 def auto_accept_friends(msg):
     """自动接受好友请求"""
@@ -28,20 +28,11 @@ def auto_accept_friends(msg):
 @bot.register(chats=Friend)
 def friend_msg(msg):
     """接收好友消息"""
-    if not msg.bot.is_friend_auto_reply:
-        return None
-    if msg.type == TEXT:
-        wx_reply.auto_reply(msg)
-        return None
-    elif msg.type == RECORDING:
-        return '不停不停，王八念经'
-    else:
-        pass
+    print('friend msg')
+    wx_reply.keyword_reply(msg) or busy_reply.busy_auto_reply(msg)
 
 
-"""群功能"""
-
-
+# 群功能
 @bot.register(chats=Group)
 def group_msg(msg):
     """接收群消息"""
@@ -96,4 +87,8 @@ def do_command(msg):
 
 # 堵塞进程，直到结束消息监听 (例如，机器人被登出时)
 # embed() 互交模式阻塞，电脑休眠或关闭互交窗口则退出程序
-bot.join()
+# [comment by Floyda] bot.join()
+# [comment by Floyda] embed()
+
+# 开启忙碌自动回复
+busy_reply.start()

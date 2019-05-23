@@ -30,3 +30,10 @@ forward_groups = 'Python新手交流'  # 需要将消息转发的群，匹配模
 # 群分享监控
 is_listen_sharing = False
 listen_sharing_groups = 'Python新手交流'  # 监控群分享，匹配模式同上
+
+# 忙碌回复
+is_auto_busy_reply = True 
+auto_busy_reply_time = 60 
+busy_reply_friend_exclude = '李雷|韩梅梅' # 
+
+telephone_number = '10012345678'
