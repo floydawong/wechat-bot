@@ -14,7 +14,7 @@ import busy_reply
 # 微信机器人，缓存登录信息
 # 如果你需要部署在服务器中，则在下面加入一个入参console_qr=True
 # console_qr表示在控制台打出二维码，部署到服务器时需要加上
-bot = Bot(cache_path=True)
+bot = Bot(cache_path=True, console_qr=True)
 # 加载配置信息到机器人
 load.load_config_to_bot(bot)
 
