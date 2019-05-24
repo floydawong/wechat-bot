@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # coding: utf-8
 
 import sys
@@ -91,4 +92,8 @@ def do_command(msg):
 
 # 开启忙碌自动回复
 busy_reply.start()
-bot.join()
+# bot.join()
+while True:
+    pass
+
+
