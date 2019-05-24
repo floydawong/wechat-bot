@@ -7,6 +7,7 @@ sys.setdefaultencoding('utf8')
 import config
 
 import time
+import threading
 
 _msg_cache = {}
 
@@ -46,7 +47,15 @@ def _tick():
                 _msg_cache[sender] = None
                 break
 
+class Tick(threading.Thread):
+    def run(self):
+        while True:
+            time.sleep(1)
+            _tick()
+
 def start():
-    while True:
-        time.sleep(1)
-        _tick()
+    # [comment by Floyda] while True:
+    # [comment by Floyda]     time.sleep(1)
+    # [comment by Floyda]     _tick()
+    main_thread = Tick()
+    main_thread.start()

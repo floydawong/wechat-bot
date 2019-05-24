@@ -87,8 +87,8 @@ def do_command(msg):
 
 # 堵塞进程，直到结束消息监听 (例如，机器人被登出时)
 # embed() 互交模式阻塞，电脑休眠或关闭互交窗口则退出程序
-# [comment by Floyda] bot.join()
 # [comment by Floyda] embed()
 
 # 开启忙碌自动回复
 busy_reply.start()
+bot.join()
