@@ -12,11 +12,8 @@ show_log(){
     cat $LOG_FILE
 }
 
-zzz='python'
-
 sh ./stop.sh
-nohup $zzz wechat_robot.py > $LOG_FILE &
+nohup python wechat_robot.py > $LOG_FILE &
 
 sleep 1
 show_log
-
