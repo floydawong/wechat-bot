@@ -7,6 +7,8 @@ sys.setdefaultencoding('utf8')
 
 from wxpy import *
 
+logger = logging.getLogger('itchat')
+
 import wx_reply
 import wx_command
 import load
@@ -23,14 +25,20 @@ load.load_config_to_bot(bot)
 @bot.register(msg_types=FRIENDS)
 def auto_accept_friends(msg):
     """自动接受好友请求"""
-    wx_reply.auto_accept_friends(msg)
+    # [comment by Floyda] wx_reply.auto_accept_friends(msg)
+    msg.reply('你好, 请问你是哪位?')
 
 
 @bot.register(chats=Friend)
 def friend_msg(msg):
     """接收好友消息"""
-    print('friend msg')
-    wx_reply.keyword_reply(msg) or busy_reply.busy_auto_reply(msg)
+    if wx_reply.keyword_reply(msg):
+        return
+    if not busy_reply.check_exclude(msg) and msg.bot.is_auto_busy_reply:
+        if msg.type == TEXT:
+            busy_reply.busy_auto_reply(msg)
+        if msg.type in [MAP, CARD, SHARING, ATTACHMENT]:
+            msg.reply('[机器人]感谢分享!')
 
 
 # 群功能

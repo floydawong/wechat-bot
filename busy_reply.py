@@ -11,6 +11,17 @@ import threading
 
 _msg_cache = {}
 
+def check_exclude(msg):
+    split_names = config.busy_reply_friend_exclude.split('|')
+    for name in split_names:
+        if name in msg.sender.name:
+            return True
+        if name in msg.sender.nick_name:
+            return True
+        if name in msg.sender.remark_name:
+            return True
+    return False
+
 def busy_auto_reply(msg):
     _msg_cache[msg.sender] = msg
 
@@ -35,11 +46,13 @@ def _tick():
         if not msg:
             continue
 
+        # 如果超时, 由机器人自动回复信息.
         if _is_msg_overtime(msg):
-            msg.reply('[机器人]\n我可能在忙, 有急事请打我电话!\n{}\n'.format(config.telephone_number))
+            msg.reply(config.auto_busy_reply_msg)
             _msg_cache[sender] = None
             continue
 
+        # 如果历史消息中, 有自己的回复, 则在缓存中清楚该记录.
         for history_msg in msg.bot.messages:
             if _is_msg_overtime(history_msg):
                 continue
@@ -54,8 +67,5 @@ class Tick(threading.Thread):
             _tick()
 
 def start():
-    # [comment by Floyda] while True:
-    # [comment by Floyda]     time.sleep(1)
-    # [comment by Floyda]     _tick()
     main_thread = Tick()
     main_thread.start()

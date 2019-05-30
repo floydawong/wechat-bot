@@ -35,5 +35,4 @@ listen_sharing_groups = 'Python新手交流'  # 监控群分享，匹配模式�
 is_auto_busy_reply = True 
 auto_busy_reply_time = 60 
 busy_reply_friend_exclude = '李雷|韩梅梅' # 
-
-telephone_number = '10012345678'
+auto_busy_reply_msg = '[机器人]\n我可能在忙, 有急事请打我电话!\n10012345678\n'
